@@ -2,12 +2,14 @@
 import Header from "./Header";
 import Content from "./content";
 import Footer from "./footer";
+import CreateList from "./createList";
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <Content />
+      {/* <Content />  */}
+      <CreateList />
       <Footer />
     </div>
   );
