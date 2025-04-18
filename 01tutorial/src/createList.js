@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { Trash2 } from "lucide-react";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faTrashAlt } from "@fortawesome/free-solid-svg-icons"; // Font Awsome Trash icon
+import { FaTrash } from "react-icons/fa";
 
 import React from "react";
 
@@ -32,10 +30,8 @@ function CreateList() {
           <li className="item" key={item.id}>
             <input type="checkbox" checked={item.checked} />
             <label>{item.item}</label>
-            <button>
-              <Trash2 size={20} /> Delete
-            </button>
-            {/* <FontAwesomeIcon icon={faTrashAlt} /> */}
+
+            <FaTrash role="button" tabIndex="0" />
           </li>
         ))}
       </ul>
