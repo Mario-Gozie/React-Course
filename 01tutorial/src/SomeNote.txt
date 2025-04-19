@@ -1,0 +1,2 @@
+PROPS
+Props is a short form of properties and prop Drilling allows you to add data down from parent component to the Child component
