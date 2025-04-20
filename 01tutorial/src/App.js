@@ -1,16 +1,19 @@
-import { useState } from "react";
 import Header from "./Header";
+import SerchItem from "./SerchItem";
+import AddItem from "./AddItem";
 import Content from "./content";
 import Footer from "./footer";
 import CreateList from "./createList";
-import AddItem from "./AddItem";
 import React from "react";
+import { useState } from "react";
 
 function App() {
   // Please Note that keys are very important in creating list items for react as it is a way which react identify items that has changed.
   const [items, setItems] = useState(
     JSON.parse(localStorage.getItem("shoppinglist")) // getting Item from local storage.
   );
+
+  const [search, setSearch] = useState("");
 
   // This Data below was Passed into the Use state Before Now
 
@@ -76,14 +79,18 @@ function App() {
   return (
     <div className="App">
       <Header title="Grocery List" />
+
       {/* <Content />  */}
       <AddItem
         newItem={newItem}
         setNewItem={setNewItem}
         handleSubmit={handleSubmit}
       />
+      <SerchItem search={search} setSearch={setSearch} />
       <CreateList
-        items={items}
+        items={items.filter((item) =>
+          item.item.toLowerCase().includes(search.toLowerCase())
+        )}
         handleCheck={handleCheck}
         handleDelete={handleDelete}
       />
