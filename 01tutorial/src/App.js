@@ -68,7 +68,7 @@ function App() {
   const [newItem, setNewItem] = useState("");
 
   const addItem = async (item) => {
-    const id = items.length ? +items[items.length - 1].id + 1 : 1;
+    const id = items.length ? items[items.length - 1].id + 1 : 1;
     console.log(id);
     // getting the id for the last position in the array.
     const myNewItem = { id, checked: false, item };
@@ -90,7 +90,7 @@ function App() {
     }
   };
 
-  const handleCheck = (id) => {
+  const handleCheck = async (id) => {
     // Here I am saying when I click, go to all the when there is a click, look at the array of items, if any item id matches Id passed to the handle click, create a new item and replace checked with its oposite value which could be true or false. else, just return the item.
     const listItems = items.map((item) =>
       item.id === id ? { ...item, checked: !item.checked } : item
@@ -99,13 +99,36 @@ function App() {
     // Now we can use set item to change the state of the items
 
     setItems(listItems);
+
+    const myItem = listItems.filter((item) => item.id === id);
+
+    const updateOptions = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ checked: myItem[0].checked }), // the new value of checked.
+    };
+
+    const reqUrl = `${API_URL}/${id}`; // Url for patching
+
+    const result = await apiRequest(reqUrl, updateOptions);
+
+    if (result) setFetchError(result);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     // This filters out and returns ids that dont match Id passed into it. this is used in a case of delete
     const listItems = items.filter((item) => item.id !== id);
 
     setItems(listItems);
+
+    const deleteOptions = { method: "DELETE" };
+    const reqUrl = `${API_URL}/${id}`;
+
+    const result = await apiRequest(reqUrl, deleteOptions);
+
+    if (result) setFetchError(result);
   };
 
   const handleSubmit = (e) => {
