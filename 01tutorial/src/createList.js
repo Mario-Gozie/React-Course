@@ -4,7 +4,7 @@ import React from "react";
 
 function CreateList({ items, handleCheck, handleDelete }) {
   return (
-    <main>
+    <>
       {items.length ? (
         <ItemList
           items={items}
@@ -14,7 +14,7 @@ function CreateList({ items, handleCheck, handleDelete }) {
       ) : (
         <p style={{ marginTop: "2rem" }}>Your list is empty</p>
       )}
-    </main>
+    </>
   );
 }
 

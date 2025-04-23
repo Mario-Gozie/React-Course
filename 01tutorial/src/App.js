@@ -8,7 +8,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 function App() {
-  const API_URL = "http://localhost:3500/itemss";
+  const API_URL = "http://localhost:3500/items";
 
   // Please Note that keys are very important in creating list items for react as it is a way which react identify items that has changed.
   const [items, setItems] = useState(
@@ -18,6 +18,7 @@ function App() {
 
   const [search, setSearch] = useState("");
   const [fetchError, setFetchError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // localStorage.setItem("shoppinglist", JSON.stringify(items));
@@ -27,16 +28,20 @@ function App() {
         const response = await fetch(API_URL);
         if (!response.ok) throw Error("Did not recieve expected data");
         const listItems = await response.json();
-        console.log(listItems);
+        // console.log(listItems);
         setItems(listItems);
         setFetchError(null);
       } catch (err) {
         // console.log(err.message);
         setFetchError(err.message);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    (async () => fetchItems())();
+    setTimeout(() => {
+      (async () => fetchItems())();
+    }, 2000);
   }, []); // This useEffect works when sight loads, that's why the array is empty.
 
   // This Data below was Passed into the Use state Before Now
@@ -106,13 +111,19 @@ function App() {
         handleSubmit={handleSubmit}
       />
       <SerchItem search={search} setSearch={setSearch} />
-      <CreateList
-        items={items.filter((item) =>
-          item.item.toLowerCase().includes(search.toLowerCase())
+      <main>
+        {isLoading && <p>Loading Items...</p>}
+        {fetchError && <p style={{ color: "red" }}>{`Error: ${fetchError}`}</p>}
+        {!fetchError && !isLoading && (
+          <CreateList
+            items={items.filter((item) =>
+              item.item.toLowerCase().includes(search.toLowerCase())
+            )}
+            handleCheck={handleCheck}
+            handleDelete={handleDelete}
+          />
         )}
-        handleCheck={handleCheck}
-        handleDelete={handleDelete}
-      />
+      </main>
 
       <Footer length={items.length} />
     </div>
