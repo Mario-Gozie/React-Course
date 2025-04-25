@@ -1,12 +1,12 @@
-// import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
-// function App() {
-//   const API_URL = "https://jsonplaceholder.typicode.com/";
-//   const [reqType, setReqType] = useState("users");
-//   const [items, setItems] = useState([]);
+function App() {
+  const API_URL = "https://jsonplaceholder.typicode.com/";
+  const [reqType, setReqType] = useState("users");
+  const [items, setItems] = useState([]);
 
-//   useEffect(() => {}, []);
-//   return <div className="App"></div>;
-// }
+  useEffect(() => {}, []);
+  return <div className="App"></div>;
+}
 
-// export default App;
+export default App;
