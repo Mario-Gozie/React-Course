@@ -4,9 +4,9 @@ import { Button } from "./Button";
 export const Form = ({ reqType, setReqType }) => {
   return (
     <form onSubmit={(e) => e.preventDefault()}>
-      <Button />
-      <Button />
-      <Button />
+      <Button buttonText="users" reqType={reqType} setReqType={setReqType} />
+      <Button buttonText="posts" reqType={reqType} setReqType={setReqType} />
+      <Button buttonText="comments" reqType={reqType} setReqType={setReqType} />
     </form>
   );
 };

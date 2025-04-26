@@ -22,7 +22,7 @@ function App() {
 
   return (
     <div className="App">
-      <Form reqType={request} setReqType={setReqType} />
+      <Form reqType={reqType} setReqType={setReqType} />
     </div>
   );
 }
