@@ -7,7 +7,7 @@ import PostPage from "./PostPage";
 import About from "./About";
 import Missing from "./Missing";
 import NewPost from "./NewPost";
-import { Route, Routes, useHistory } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -19,9 +19,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/post" element={<NewPost />} />
         <Route path="/post/:id" element={<PostPage />} />
-        <Route path="/about" Component={About} />
+        <Route path="/about" element={<About />} />
 
-        <Route path="*" Component={Missing} />
+        <Route path="*" element={<Missing />} />
       </Routes>
 
       <Footer />
