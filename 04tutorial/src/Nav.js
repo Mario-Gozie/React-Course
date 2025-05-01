@@ -1,9 +1,31 @@
 import React from "react";
-
-function Nav() {
+import { Link } from "react-router-dom";
+function Nav({ search, setSearch }) {
   return (
-    <nav>
-      <h1>Nav</h1>
+    <nav className="Nav">
+      <form className="searchForm" onSubmit={(e) => e.preventDefault()}>
+        <label htmlFor="Search">Search Post</label>
+        <input
+          id="search"
+          type="text"
+          placeholder="Search Posts"
+          value={search}
+          onChange={(e) => e.target.value}
+        ></input>
+      </form>
+      <ul>
+        {/* Please note that this Link element from the tells the router, do
+          not go to the server but to the proper component. */}
+        <li>
+          <Link to={"/"}>Home</Link>
+        </li>
+        <li>
+          <Link to={"/post"}>Post</Link>
+        </li>
+        <li>
+          <Link to={"/about"}>About</Link>
+        </li>
+      </ul>
     </nav>
   );
 }
