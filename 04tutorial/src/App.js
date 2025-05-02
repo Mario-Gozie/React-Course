@@ -41,6 +41,8 @@ function App() {
 
   const [searchResult, setSearchResults] = useState();
 
+  const handleDelete = (id) => {};
+
   return (
     <div className="App">
       <Header title="React JS Blog" />
@@ -48,10 +50,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Home posts={posts} />} />
         <Route path="/post" element={<NewPost />} />
-        <Route path="/post/postpage" element={<PostPage />} />
+        <Route
+          path="/post/postpage"
+          element={<PostPage posts={posts} handleDelete={handleDelete} />}
+        />
         <Route path="/about" element={<About />} />
 
-        <Route path="*" element={<Missing />} />
+        {/* <Route path="*" element={<Missing />} /> */}
       </Routes>
 
       <Footer />
