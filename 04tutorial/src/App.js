@@ -51,12 +51,12 @@ function App() {
         <Route path="/" element={<Home posts={posts} />} />
         <Route path="/post" element={<NewPost />} />
         <Route
-          path="/post/postpage"
+          path="/post/:id"
           element={<PostPage posts={posts} handleDelete={handleDelete} />}
         />
         <Route path="/about" element={<About />} />
 
-        {/* <Route path="*" element={<Missing />} /> */}
+        <Route path="*" element={<Missing />} />
       </Routes>
 
       <Footer />
