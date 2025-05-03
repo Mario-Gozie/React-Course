@@ -1,9 +1,16 @@
 import React from "react";
 
-function NewPost() {
+function NewPost({
+  handleSubmit,
+  postTitle,
+  setPostTitle,
+  postBody,
+  setPostBody,
+}) {
   return (
-    <main>
-      <h1>NewPost</h1>
+    <main className="NewPost">
+      <h2>New Post</h2>
+      <form className="newPostForm" onSubmit={handleSubmit}></form>
     </main>
   );
 }

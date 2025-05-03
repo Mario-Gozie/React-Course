@@ -11,7 +11,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 function App() {
-  const [posts, setPost] = useState([
+  const [posts, setPosts] = useState([
     {
       id: 1,
       title: "My First Post",
@@ -38,10 +38,18 @@ function App() {
     },
   ]);
   const [search, setSearch] = useState("");
-
   const [searchResult, setSearchResults] = useState();
+  const [postTitle, setPostTitle] = useState("");
+  const [postBody, setPostBody] = useState("");
+  const navigate = useNavigate(); // for rerouting
 
-  const handleDelete = (id) => {};
+  const handleSubmit = () => {};
+
+  const handleDelete = (id) => {
+    const postsList = posts.filter((post) => post.id !== id);
+    setPosts(postsList);
+    navigate("/"); //This will navigate us to the home page when we delet an item.
+  };
 
   return (
     <div className="App">
@@ -49,7 +57,18 @@ function App() {
       <Nav search={search} setSearch={setSearch} />
       <Routes>
         <Route path="/" element={<Home posts={posts} />} />
-        <Route path="/post" element={<NewPost />} />
+        <Route
+          path="/post"
+          element={
+            <NewPost
+              handleSubmit={handleSubmit}
+              postTitle={postTitle}
+              setPostTitle={setPostTitle}
+              postBody={postBody}
+              setPostBody={setPostBody}
+            />
+          }
+        />
         <Route
           path="/post/:id"
           element={<PostPage posts={posts} handleDelete={handleDelete} />}
