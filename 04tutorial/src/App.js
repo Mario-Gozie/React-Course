@@ -78,7 +78,7 @@ function App() {
       <Header title="React JS Blog" />
       <Nav search={search} setSearch={setSearch} />
       <Routes>
-        <Route path="/" element={<Home posts={posts} />} />
+        <Route path="/" element={<Home posts={searchResult} />} />
         <Route
           path="/post"
           element={
