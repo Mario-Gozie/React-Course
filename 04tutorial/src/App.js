@@ -9,6 +9,7 @@ import Missing from "./Missing";
 import NewPost from "./NewPost";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { format } from "date-fns";
 
 function App() {
   const [posts, setPosts] = useState([
@@ -37,13 +38,34 @@ function App() {
       body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis consequatur expedita, assumenda similique non optio! Modi nesciunt excepturi corrupti atque blanditiis quo nobis, non optio quae possimus illum exercitationem ipsa!",
     },
   ]);
+
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResults] = useState();
   const [postTitle, setPostTitle] = useState("");
   const [postBody, setPostBody] = useState("");
   const navigate = useNavigate(); // for rerouting
 
-  const handleSubmit = () => {};
+  useEffect(() => {
+    const filteredResults = posts.filter(
+      (post) =>
+        post.body.toLowerCase().includes(search.toLowerCase()) ||
+        post.title.toLowerCase().includes(search.toLowerCase())
+    );
+
+    setSearchResults(filteredResults.reverse());
+  }, [posts, search]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const id = posts.length ? posts[posts.length - 1].id + 1 : 1;
+    const datetime = format(new Date(), "MMMM dd, yyyy pp");
+    const newPost = { id, title: postTitle, datetime, body: postBody };
+    const allPost = [...posts, newPost];
+    setPosts(allPost);
+    setPostTitle("");
+    setPostBody("");
+    navigate("/");
+  };
 
   const handleDelete = (id) => {
     const postsList = posts.filter((post) => post.id !== id);

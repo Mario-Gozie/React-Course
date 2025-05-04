@@ -10,7 +10,7 @@ function Nav({ search, setSearch }) {
           type="text"
           placeholder="Search Posts"
           value={search}
-          onChange={(e) => e.target.value}
+          onChange={(e) => setSearch(e.target.value)}
         ></input>
       </form>
       <ul>
