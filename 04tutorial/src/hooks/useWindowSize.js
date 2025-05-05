@@ -15,12 +15,8 @@ const useWindowSize = () => {
 
     window.addEventListener("resize", handleResize); // This will run when the window is resized.
 
-    const cleanUp = () => {
-      console.log(`runs if a useEffect dep changes`);
-      window.removeEventListener("resize", handleResize);
-    };
-
-    return cleanUp;
+    // return cleanUp;
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return windowSize;
