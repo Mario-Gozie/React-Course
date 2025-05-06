@@ -13,6 +13,7 @@ import { useState, useEffect } from "react";
 import { format } from "date-fns";
 import api from "./api/posts";
 import useWindowSize from "./hooks/useWindowSize";
+import useAxiosFetch from "./hooks/useAxiosFetch";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -26,26 +27,35 @@ function App() {
   const navigate = useNavigate(); // for rerouting
   const { width } = useWindowSize();
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await api.get("/posts");
-        console.log(response);
-        setPosts(response.data);
-      } catch (err) {
-        if (err.response) {
-          // Not in the 200 response range.
-          console.log(err.response.data);
-          console.log(err.response.status);
-          console.log(err.response.Headers);
-        } else {
-          console.log(`Error:${err.message}`);
-        }
-      }
-    };
+  const { data, fetchError, isLoading } = useAxiosFetch(
+    `http://localhost:3500/posts`
+  );
 
-    fetchPosts();
-  }, []);
+  useEffect(() => {
+    setPosts(data);
+    console.log("Updated data yes:", data);
+  }, [data]);
+
+  // useEffect(() => {
+  //   const fetchPosts = async () => {
+  //     try {
+  //       const response = await api.get("/posts");
+  //       console.log(response);
+  //       setPosts(response.data);
+  //     } catch (err) {
+  //       if (err.response) {
+  //         // Not in the 200 response range.
+  //         console.log(err.response.data);
+  //         console.log(err.response.status);
+  //         console.log(err.response.Headers);
+  //       } else {
+  //         console.log(`Error:${err.message}`);
+  //       }
+  //     }
+  //   };
+
+  //   fetchPosts();
+  // }, []);
 
   useEffect(() => {
     const filteredResults = posts.filter(
@@ -106,7 +116,16 @@ function App() {
       <Header title="React JS Blog" width={width} />
       <Nav search={search} setSearch={setSearch} />
       <Routes>
-        <Route path="/" element={<Home posts={searchResult || []} />} />
+        <Route
+          path="/"
+          element={
+            <Home
+              fetchError={fetchError}
+              isLoading={isLoading}
+              posts={searchResult}
+            />
+          }
+        />
         <Route
           path="/post"
           element={
