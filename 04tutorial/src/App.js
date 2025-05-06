@@ -8,7 +8,7 @@ import EditPost from "./EditPost";
 import About from "./About";
 import Missing from "./Missing";
 import NewPost from "./NewPost";
-// import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 // import { useState, useEffect } from "react";
 // import { format } from "date-fns";
 // import api from "./api/posts";
@@ -121,10 +121,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/post" element={<NewPost />} />
           <Route path="/edit/:id" element={<EditPost />} />
-          <Route
-            path="/post/:id"
-            element={<PostPage posts={posts} handleDelete={handleDelete} />}
-          />
+          <Route path="/post/:id" element={<PostPage />} />
           <Route path="/about" element={<About />} />
 
           <Route path="*" element={<Missing />} />
