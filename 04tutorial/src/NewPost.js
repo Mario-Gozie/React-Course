@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useContext } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import DataContext from "./Context/DataContext";
 import api from "./api/posts";
@@ -9,7 +9,7 @@ function NewPost() {
   const [postTitle, setPostTitle] = useState("");
   const [postBody, setPostBody] = useState("");
   const { posts, setPosts } = useContext(DataContext);
-  const navigate = Navigate();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
